@@ -1,1 +1,33 @@
-<p>mes works!</p>
+<div class="row text-center">
+  <div class="col">
+    <button type="button" class="btn light" (click)="cambiarMes(-1)">&lt;</button>
+  </div>
+  <div class="col">
+    <h1>{{ stringMes(fechaVisual) }}</h1>
+  </div>
+  <div class="col">
+    <button type="button" class="btn light" (click)="cambiarMes(1)">&gt;</button>
+  </div>
+</div>
+
+<div class="row text-center">
+
+  @for (dia of dias; track $index) {
+  <div class="col">
+    <h3>{{ dia }}</h3>
+  </div>
+  }
+
+</div>
+
+@for (semana of semanas; track semana.id) {
+<div class="row text-center">
+
+  @for (dia of semana.dias; track $index) {
+  <div class="col">
+    {{ dia.diaDelMes }}
+  </div>
+  }
+
+</div>
+}

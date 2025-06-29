@@ -1,25 +1,33 @@
-<div class="btn-group
-    position-absolute
-    top-0 start-50 translate-middle-x" role="group">
-  <input value="mes" type="radio" class="btn-check" name="rango" id="mes" autocomplete="off"
-    (change)="cambiarRango($event)" checked>
-  <label class="btn btn-outline-primary" for="mes">Mes</label>
+<div class="container">
+  <div class="row">
+    <div class="btn-group col" role="group">
 
-  <input value="semana" type="radio" class="btn-check" name="rango" id="semana" autocomplete="off"
-    (change)="cambiarRango($event)">
-  <label class="btn btn-outline-primary" for="semana">Semana</label>
+      <input value="mes" type="radio" class="btn-check" name="rango" id="mes" autocomplete="off"
+        (change)="cambiarRango($event)" checked>
+      <label class="btn btn-outline-primary" for="mes">Mes</label>
 
-  <input value="dia" type="radio" class="btn-check" name="rango" id="dia" autocomplete="off"
-    (change)="cambiarRango($event)">
-  <label class="btn btn-outline-primary" for="dia">Día</label>
-</div>
+      <input value="semana" type="radio" class="btn-check" name="rango" id="semana" autocomplete="off"
+        (change)="cambiarRango($event)">
+      <label class="btn btn-outline-primary" for="semana">Semana</label>
 
-<div>
-  @if (rangoCalendario == "mes") {
-  <app-mes></app-mes>
-  } @else if (rangoCalendario == "semana") {
-  <app-semana></app-semana>
-  } @else {
-  <app-dia></app-dia>
-  }
+      <input value="dia" type="radio" class="btn-check" name="rango" id="dia" autocomplete="off"
+        (change)="cambiarRango($event)">
+      <label class="btn btn-outline-primary" for="dia">Día</label>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+
+      @if (rangoCalendario == "mes") {
+      <app-mes></app-mes>
+      } @else if (rangoCalendario == "semana") {
+      <app-semana></app-semana>
+      } @else {
+      <app-dia></app-dia>
+      }
+
+    </div>
+  </div>
 </div>
