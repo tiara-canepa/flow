@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './mes.component.scss'
 })
 export class MesComponent {
-  hoy = new Date(2025, 5, 30);
+  hoy = new Date(Date.now());
   fechaVisual = new Date(this.hoy.getFullYear(), this.hoy.getMonth(), 1);
 
   semanas: Array<Semana>;

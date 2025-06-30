@@ -1,1 +1,48 @@
-<p>dia works!</p>
+<div class="row text-center">
+  <div class="col h3">
+    {{ dia.getDate() }} - {{ diasStrings[dia.getDay()] }}
+  </div>
+</div>
+
+@for (tarea of tareasDelDia; track tarea.id) {
+<div class="row">
+  <div class="card">
+
+    <div class="row card-header btn-group">
+      <div class="row">
+
+        <div class="col h5">
+          {{ tarea.titulo }}
+        </div>
+
+        <div class="dropdown col">
+          <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{ tarea.estado }}
+          </button>
+          <ul class="dropdown-menu">
+            <li>Completada</li>
+            <li>En Progreso</li>
+            <li>Incompleta</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"> {{ tarea.descripcion }} </li>
+        <li class="list-group-item">
+          @if (tarea.fechaInicio) {
+              Inicio {{ tarea.fechaInicio.getHours() }}:{{ tarea.fechaInicio.getMinutes() }}
+          }
+            Término {{ tarea.fechaTermino.getHours() }}:{{ tarea.fechaTermino.getMinutes() }}
+        </li>
+        @if (tarea.notas) {
+            <li class="list-group-item">{{ tarea.notas }}</li>
+          }
+      </ul>
+    </div>
+  </div>
+</div>
+}
