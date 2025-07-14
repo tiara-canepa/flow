@@ -3,6 +3,7 @@ import { CalendarioComponent } from './calendario/calendario.component';
 import { MesComponent } from './calendario/mes/mes.component';
 import { SemanaComponent } from './calendario/semana/semana.component';
 import { DiaComponent } from './calendario/dia/dia.component';
+import { RegistrarTareaComponent } from './registrar-tarea/registrar-tarea.component';
 
 export const routes: Routes = [
   {
@@ -23,4 +24,8 @@ export const routes: Routes = [
       }
     ]
   },
+  {
+    path: 'registrar',
+    component: RegistrarTareaComponent,
+  }
 ];

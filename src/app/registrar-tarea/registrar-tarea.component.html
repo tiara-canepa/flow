@@ -1,0 +1,46 @@
+<form>
+  <div class="mb-2">
+    <label for="titulo" class="form-label">Título</label>
+    <input type="text" class="form-control" id="titulo" name="titulo" [(ngModel)]="formTitulo">
+  </div>
+
+  @if (esIntervalo) {
+  <label for="annoTermino" class="form-label">Fecha de Inicio</label>
+  <div class="input-group mb-2">
+    <input type="date" class="form-control" name="fechaInicio">
+    <input type="time" class="form-control" name="horaInicio">
+  </div>
+  }
+
+  <label for="fechaInicio" class="form-label">Fecha de Término</label>
+  <div class="input-group mb-2">
+    <input type="date" class="form-control" name="fechaTermino"
+      [(ngModel)]="fechaTermino">
+    <input type="time" class="form-control" name="horaTermino"
+      [(ngModel)]="horaTermino">
+  </div>
+  <p>{{ fechaTermino }}</p>
+  <p>{{ horaTermino }}</p>
+  @if (fechaTermino) {
+    <p>true</p>
+  } @else {
+    <p>false</p>
+}
+
+  <div class="form-check">
+    <label class="form-check-label" for="intervalo">Intervalo</label>
+    <input name="intervalo" class="form-check-input" type="checkbox" [(ngModel)]="esIntervalo" id="intervalo">
+  </div>
+
+  <div class="mb-2">
+    <label for="descripcion" class="form-label">Descripción</label>
+    <textarea class="form-control" id="descripcion" name="descripcion" [(ngModel)]="formDescripcion"></textarea>
+  </div>
+
+  <div class="mb-2">
+    <label for="notas" class="form-label">Notas (opcional)</label>
+    <textarea class="form-control" id="notas"></textarea>
+  </div>
+
+  <button class="btn btn-success" type="submit" (click)="registrarTarea()">Confirmar</button>
+</form>

@@ -14,22 +14,12 @@
         (change)="cambiarRango($event)">
       <label class="btn btn-outline-primary" for="dia">Día</label>
 
+      <input value="registrar" type="radio" class="btn-check" name="registrar"
+        id="registrar" autocomplete="off" (change)="cambiarRango($event)">
+      <label class="btn btn-outline-primary" for="registrar">Nueva Tarea</label>
+
     </div>
   </div>
-
-  <!-- <div class="row"> -->
-  <!--   <div class="col"> -->
-  <!---->
-  <!--     @if (rangoCalendario == "mes") { -->
-  <!--     <app-mes></app-mes> -->
-  <!--     } @else if (rangoCalendario == "semana") { -->
-  <!--     <app-semana></app-semana> -->
-  <!--     } @else { -->
-  <!--     <app-dia></app-dia> -->
-  <!--     } -->
-  <!---->
-  <!--   </div> -->
-  <!-- </div> -->
 
   <div class="row">
     <div class="col">
