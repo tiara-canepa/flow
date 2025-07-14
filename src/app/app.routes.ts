@@ -1,3 +1,26 @@
 import { Routes } from '@angular/router';
+import { CalendarioComponent } from './calendario/calendario.component';
+import { MesComponent } from './calendario/mes/mes.component';
+import { SemanaComponent } from './calendario/semana/semana.component';
+import { DiaComponent } from './calendario/dia/dia.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  {
+    path: '',
+    component: CalendarioComponent,
+    children: [
+      {
+        path: 'mes',
+        component: MesComponent,
+      },
+      {
+        path: 'semana',
+        component: SemanaComponent,
+      },
+      {
+        path: 'dia',
+        component: DiaComponent,
+      }
+    ]
+  },
+];

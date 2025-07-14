@@ -17,17 +17,23 @@
     </div>
   </div>
 
+  <!-- <div class="row"> -->
+  <!--   <div class="col"> -->
+  <!---->
+  <!--     @if (rangoCalendario == "mes") { -->
+  <!--     <app-mes></app-mes> -->
+  <!--     } @else if (rangoCalendario == "semana") { -->
+  <!--     <app-semana></app-semana> -->
+  <!--     } @else { -->
+  <!--     <app-dia></app-dia> -->
+  <!--     } -->
+  <!---->
+  <!--   </div> -->
+  <!-- </div> -->
+
   <div class="row">
     <div class="col">
-
-      @if (rangoCalendario == "mes") {
-      <app-mes></app-mes>
-      } @else if (rangoCalendario == "semana") {
-      <app-semana></app-semana>
-      } @else {
-      <app-dia></app-dia>
-      }
-
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
