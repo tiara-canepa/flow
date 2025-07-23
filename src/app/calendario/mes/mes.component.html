@@ -28,7 +28,7 @@
     <button class="btn no-margin position-relative"
           (click)="verDia(dia.diaDelMes)">
       {{ dia.diaDelMes }}
-      @for (tarea of tareas; track tarea.id) {
+      @for (tarea of tareasDelMes; track tarea.id) {
         @if (tarea.fechaTermino.getDate() === dia.diaDelMes) {
           <span class="position-absolute top-10 start-100 translate-middle p-1
       bg-danger border border-light rounded-circle">

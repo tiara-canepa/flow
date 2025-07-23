@@ -21,7 +21,18 @@ export const routes: Routes = [
       {
         path: 'dia/:anno/:mes/:dia',
         component: DiaComponent,
-      }
+      },
+      {
+        path: 'dia',
+        redirectTo: () => {
+          const fecha = new Date();
+          const anno = fecha.getFullYear();
+          const mes = fecha.getMonth();
+          const dia = fecha.getDate();
+
+          return `dia/${anno}/${mes}/${dia}`
+        },
+      },
     ]
   },
   {

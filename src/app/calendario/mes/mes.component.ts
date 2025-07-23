@@ -17,17 +17,28 @@ export class MesComponent {
   hoy = new Date(Date.now());
   fechaVisual = new Date(this.hoy.getFullYear(), this.hoy.getMonth(), 1);
 
-  tareas: Array<Tarea>;
+  tareas: Array<Tarea> = [];
+  tareasDelMes: Array<Tarea> = [];
   semanas: Array<Semana>;
 
   dias = ["L", "M", "Mi", "J", "V", "S", "D"];
 
-  mes = this.hoy.getMonth();
+  mes = this.fechaVisual.getMonth();
 
   constructor(servicioTareas: TareasService) {
     this.servicioTareas = servicioTareas;
 
-    this.tareas = servicioTareas.getTareasDelMes(this.fechaVisual.getMonth());
+    servicioTareas.getTareasSubject().subscribe(tareas => {
+      this.tareas = tareas;
+      this.tareasDelMes = tareas.filter(tarea => {
+        if (tarea.fechaInicio) {
+          return tarea.fechaInicio.getMonth() === this.fechaVisual.getMonth()
+            || tarea.fechaTermino.getMonth() === this.fechaVisual.getMonth();
+        } else {
+          return tarea.fechaTermino.getMonth() === this.fechaVisual.getMonth();
+        }
+      });
+    });
 
     this.semanas = this.getSemanas(this.fechaVisual);
   }
@@ -62,7 +73,14 @@ export class MesComponent {
   cambiarMes(valor: number): void {
     this.fechaVisual.setMonth(this.fechaVisual.getMonth() + valor);
 
-    this.tareas = this.servicioTareas.getTareasDelMes(this.fechaVisual.getMonth());
+    this.tareasDelMes = this.tareas.filter(tarea => {
+      if (tarea.fechaInicio) {
+        return tarea.fechaInicio.getMonth() === this.fechaVisual.getMonth()
+          || tarea.fechaTermino.getMonth() === this.fechaVisual.getMonth();
+      } else {
+        return tarea.fechaTermino.getMonth() === this.fechaVisual.getMonth();
+      }
+    });
 
     this.semanas = this.getSemanas(this.fechaVisual);
   }
