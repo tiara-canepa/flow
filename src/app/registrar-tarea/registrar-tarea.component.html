@@ -1,4 +1,4 @@
-<form>
+<form class="m-3">
   <div class="mb-2">
     <label for="titulo" class="form-label">Título</label>
     <input type="text" class="form-control" id="titulo" name="titulo" [(ngModel)]="formTitulo">
@@ -19,13 +19,13 @@
     <input type="time" class="form-control" name="horaTermino"
       [(ngModel)]="horaTermino">
   </div>
-  <p>{{ fechaTermino }}</p>
-  <p>{{ horaTermino }}</p>
-  @if (fechaTermino) {
-    <p>true</p>
-  } @else {
-    <p>false</p>
-}
+  <!-- <p>{{ fechaTermino }}</p> -->
+  <!-- <p>{{ horaTermino }}</p> -->
+<!--   @if (fechaTermino) { -->
+<!--     <p>true</p> -->
+<!--   } @else { -->
+<!--     <p>false</p> -->
+<!-- } -->
 
   <div class="form-check">
     <label class="form-check-label" for="intervalo">Intervalo</label>

@@ -25,7 +25,18 @@
 
   @for (dia of semana.dias; track $index) {
   <div class="col">
-    {{ dia.diaDelMes }}
+    <button class="btn no-margin position-relative"
+          (click)="verDia(dia.diaDelMes)">
+      {{ dia.diaDelMes }}
+      @for (tarea of tareas; track tarea.id) {
+        @if (tarea.fechaTermino.getDate() === dia.diaDelMes) {
+          <span class="position-absolute top-10 start-100 translate-middle p-1
+      bg-danger border border-light rounded-circle">
+            <span class="visually-hidden">Tareas disponibles</span>
+          </span>
+        }
+      }
+    </button>
   </div>
   }
 

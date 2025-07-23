@@ -19,7 +19,7 @@ export const routes: Routes = [
         component: SemanaComponent,
       },
       {
-        path: 'dia',
+        path: 'dia/:anno/:mes/:dia',
         component: DiaComponent,
       }
     ]
