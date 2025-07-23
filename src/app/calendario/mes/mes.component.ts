@@ -25,6 +25,9 @@ export class MesComponent {
 
   mes = this.fechaVisual.getMonth();
 
+  test = new Date();
+  test1 = new Date();
+
   constructor(servicioTareas: TareasService) {
     this.servicioTareas = servicioTareas;
 

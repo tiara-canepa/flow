@@ -23,13 +23,35 @@ export class DiaComponent {
     "Viernes",
     "Sábado",
   ];
-  tareasDelDia: Array<Tarea>;
+  tareas: Array<Tarea> = [];
+  tareasDelDia: Array<Tarea> = [];
 
   constructor(servicioTareas: TareasService) {
-    this.tareasDelDia = servicioTareas.getTareasDePrueba();
-
     this.activatedRoute.params.subscribe(params => {
       this.dia = new Date(params['anno'], params['mes'], params['dia']);
     })
+
+    servicioTareas.getTareasSubject().subscribe(tareas => {
+      this.tareas = tareas;
+      this.tareasDelDia = this.getTareasDelDia();
+    });
+  }
+
+  getTareasDelDia(): Array<Tarea> {
+    return this.tareas.filter(tarea => {
+      if (tarea.fechaInicio) {
+        return (tarea.fechaInicio.getFullYear() === this.dia.getFullYear()
+          && tarea.fechaInicio.getMonth() === this.dia.getMonth()
+          && tarea.fechaInicio.getDate() === this.dia.getDate())
+          ||
+          (tarea.fechaTermino.getFullYear() === this.dia.getFullYear()
+            && tarea.fechaTermino.getMonth() === this.dia.getMonth()
+            && tarea.fechaTermino.getDate() === this.dia.getDate());
+      } else {
+        return tarea.fechaTermino.getFullYear() === this.dia.getFullYear()
+          && tarea.fechaTermino.getMonth() === this.dia.getMonth()
+          && tarea.fechaTermino.getDate() === this.dia.getDate();
+      }
+    });
   }
 }

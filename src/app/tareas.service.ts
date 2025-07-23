@@ -31,6 +31,13 @@ export class TareasService {
         titulo: "Meh",
         estado: Estado.Incompleta,
       },
+      {
+        id: 4,
+        fechaInicio: new Date(),
+        fechaTermino: new Date(),
+        titulo: "Test",
+        estado: Estado.Incompleta,
+      }
     ];
 
     this.tareasSubject$ = new BehaviorSubject(this.tareas);
