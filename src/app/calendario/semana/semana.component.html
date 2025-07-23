@@ -36,11 +36,18 @@
         }
       </div>
 
-      <div class="row justify-content-center gy-3" >
-        @for (hora of horas; track $index) {
-          <div class="col-1">{{ hora }}</div>
-          <div class="col-11"></div>
-          <!-- TODO: Implementar tareas por día de la semana -->
+      <div class="row">
+        @for (filas of celdasActivas; track $index) {
+          <div class="row justify-content-center m-0">
+            <div class="col-1">{{ $index }}</div>
+            @for (cols of filas; track $index) {
+              <div class="col p-0">
+                @if (cols.activo) {
+                  <a routerLink="/mes" class="active"></a>
+                }
+              </div>
+            }
+          </div>
         }
       </div>
 
