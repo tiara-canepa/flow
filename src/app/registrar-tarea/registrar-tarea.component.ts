@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Estado } from '../tarea';
 import { TareasService } from '../tareas.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-tarea',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './registrar-tarea.component.html',
   styleUrl: './registrar-tarea.component.scss'
 })
@@ -26,6 +26,8 @@ export class RegistrarTareaComponent {
 
   fechaTermino: string = '';
   horaTermino: string = '';
+
+  disabled: boolean = true;
 
   constructor(servicioTareas: TareasService) {
     this.servicioTareas = servicioTareas;

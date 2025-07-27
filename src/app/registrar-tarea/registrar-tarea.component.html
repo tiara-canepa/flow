@@ -1,31 +1,27 @@
-<form class="m-3">
+<form (ngSubmit)="registrarTarea()" #tareaForm="ngForm" class="m-3">
   <div class="mb-2">
     <label for="titulo" class="form-label">Título</label>
-    <input type="text" class="form-control" id="titulo" name="titulo" [(ngModel)]="formTitulo">
+    <input type="text" class="form-control" id="titulo" name="titulo"
+      [(ngModel)]="formTitulo" required>
   </div>
 
   @if (esIntervalo) {
-  <label for="annoTermino" class="form-label">Fecha de Inicio</label>
-  <div class="input-group mb-2">
-    <input type="date" class="form-control" name="fechaInicio">
-    <input type="time" class="form-control" name="horaInicio">
-  </div>
+    <label for="annoTermino" class="form-label">Fecha de Inicio</label>
+    <div class="input-group mb-2">
+      <input type="date" class="form-control" name="fechaInicio"
+        [(ngModel)]="fechaInicio" required>
+      <input type="time" class="form-control" name="horaInicio"
+        [(ngModel)]="horaInicio" required>
+    </div>
   }
 
   <label for="fechaInicio" class="form-label">Fecha de Término</label>
   <div class="input-group mb-2">
     <input type="date" class="form-control" name="fechaTermino"
-      [(ngModel)]="fechaTermino">
+      [(ngModel)]="fechaTermino" required>
     <input type="time" class="form-control" name="horaTermino"
-      [(ngModel)]="horaTermino">
+      [(ngModel)]="horaTermino" required>
   </div>
-  <!-- <p>{{ fechaTermino }}</p> -->
-  <!-- <p>{{ horaTermino }}</p> -->
-<!--   @if (fechaTermino) { -->
-<!--     <p>true</p> -->
-<!--   } @else { -->
-<!--     <p>false</p> -->
-<!-- } -->
 
   <div class="form-check">
     <label class="form-check-label" for="intervalo">Intervalo</label>
@@ -42,5 +38,13 @@
     <textarea class="form-control" id="notas"></textarea>
   </div>
 
-  <button class="btn btn-success" type="submit" (click)="registrarTarea()">Confirmar</button>
+  <div class="row justify-content-between text-center">
+    <div class="col">
+      <button class="btn btn-danger"><a routerLink="/mes">Cancelar</a></button>
+    </div>
+    <div class="col">
+      <button class="btn btn-success" type="submit"
+        [disabled]="!tareaForm.form.valid">Confirmar</button>
+    </div>
+  </div>
 </form>
