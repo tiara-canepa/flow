@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DiaComponent {
   private activatedRoute = inject(ActivatedRoute);
+  private servicioTareas;
 
   dia: Date = new Date();
   diasStrings: string[] = [
@@ -27,6 +28,8 @@ export class DiaComponent {
   tareasDelDia: Array<Tarea> = [];
 
   constructor(servicioTareas: TareasService) {
+    this.servicioTareas = servicioTareas;
+
     this.activatedRoute.params.subscribe(params => {
       this.dia = new Date(params['anno'], params['mes'], params['dia']);
     })
@@ -53,5 +56,9 @@ export class DiaComponent {
           && tarea.fechaTermino.getDate() === this.dia.getDate();
       }
     });
+  }
+
+  eliminarTarea(id: number) {
+    this.servicioTareas.eliminarTarea(id);
   }
 }

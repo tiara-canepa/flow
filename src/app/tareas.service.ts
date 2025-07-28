@@ -49,7 +49,7 @@ export class TareasService {
   }
 
   eliminarTarea(id: number): void {
-    this.tareas = this.tareas.filter(tarea => { tarea.id != id })
+    this.tareas = this.tareas.filter(tarea => tarea.id !== id);
     this.tareasSubject$.next(this.tareas);
   }
 
