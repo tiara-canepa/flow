@@ -48,6 +48,15 @@ export class TareasService {
     this.tareasSubject$.next(this.tareas);
   }
 
+  modificarEstado(id: number, estado: number): void {
+    let tarea = this.tareas.find(tarea => tarea.id === id);
+    if (tarea) {
+      tarea.estado = estado;
+    }
+
+    this.tareasSubject$.next(this.tareas);
+  }
+
   eliminarTarea(id: number): void {
     this.tareas = this.tareas.filter(tarea => tarea.id !== id);
     this.tareasSubject$.next(this.tareas);

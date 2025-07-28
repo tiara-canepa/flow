@@ -61,4 +61,8 @@ export class DiaComponent {
   eliminarTarea(id: number) {
     this.servicioTareas.eliminarTarea(id);
   }
+
+  cambiarEstado(id: number, event: any) {
+    this.servicioTareas.modificarEstado(id, event.value);
+  }
 }
