@@ -39,10 +39,16 @@
         <li class="list-group-item"> {{ tarea.descripcion }} </li>
         @if (tarea.fechaInicio) {
           <li class="list-group-item">
-          Desde {{tarea.fechaInicio.getDate()}}/{{tarea.fechaInicio.getMonth()+1}}/{{tarea.fechaInicio.getFullYear()}}, {{days[tarea.fechaInicio.getDay()]}} a las {{ tarea.fechaInicio.getHours() }}:{{ tarea.fechaInicio.getMinutes() }} </li>
+          Desde
+              {{tarea.fechaInicio.getDate()}}/{{tarea.fechaInicio.getMonth()+1}}/{{tarea.fechaInicio.getFullYear()}},
+              {{days[tarea.fechaInicio.getDay()]}} a las {{
+              ("0" + tarea.fechaInicio.getHours()).slice(-2) }}:{{
+              ("0" + tarea.fechaInicio.getMinutes()).slice(-2) }} </li>
         }
         <li class="list-group-item">
-            Hasta {{tarea.fechaTermino.getDate()}}/{{tarea.fechaTermino.getMonth()+1}}/{{tarea.fechaTermino.getFullYear()}}, {{days[tarea.fechaTermino.getDay()]}} a las {{ tarea.fechaTermino.getHours() }}:{{ tarea.fechaTermino.getMinutes() }} </li>
+            Hasta {{tarea.fechaTermino.getDate()}}/{{tarea.fechaTermino.getMonth()+1}}/{{tarea.fechaTermino.getFullYear()}}, {{days[tarea.fechaTermino.getDay()]}} a las {{
+            ("0" + tarea.fechaTermino.getHours()).slice(-2) }}:{{
+            ("0" + tarea.fechaTermino.getMinutes()).slice(-2) }} </li>
         @if (tarea.notas) {
             <li class="list-group-item">{{ tarea.notas }}</li>
           }
