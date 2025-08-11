@@ -1,0 +1,38 @@
+.fab-btn-edit {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background-color: #ffc107; /* Bootstrap yellow */
+  color: white;
+  border: none;
+  font-size: 1.2rem; /* icon size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.fab-btn-edit:hover {
+  background-color: #e0a800; /* darker yellow on hover */
+}
+
+
+.fab-btn-delete {
+  width: 36px; /* match edit button size */
+  height: 36px;
+  border-radius: 4px;
+  background-color: #dc3545; /* Bootstrap danger red */
+  color: white;
+  border: none;
+  font-size: 1.2rem; /* icon size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.fab-btn-delete:hover {
+  background-color: #bb2d3b; /* darker red on hover */
+}

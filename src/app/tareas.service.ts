@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Tarea, Estado } from './tarea';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, throwError } from 'rxjs';
+import { NotificationService } from './notificacion/notificacion.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,19 +11,25 @@ export class TareasService {
   tareas: Array<Tarea>;
   tareasSubject$: BehaviorSubject<Tarea[]>;
 
-  constructor() {
+  constructor(private notificationService: NotificationService) {
     this.tareas = [
       {
         id: 1,
         fechaTermino: new Date(2025, 7, 15),
         titulo: "Hola",
         estado: Estado.Incompleta,
+        notifDay: false,
+        notifStart: false,
+        notifEnd: false
       },
       {
         id: 2,
         fechaTermino: new Date(2025, 6, 15),
         titulo: "Adiós",
         estado: Estado.Incompleta,
+        notifDay: false,
+        notifStart: false,
+        notifEnd: false
       },
       {
         id: 3,
@@ -30,6 +37,9 @@ export class TareasService {
         fechaTermino: new Date(2025, 6, 13),
         titulo: "Meh",
         estado: Estado.Incompleta,
+        notifDay: false,
+        notifStart: false,
+        notifEnd: false
       },
       {
         id: 4,
@@ -37,17 +47,16 @@ export class TareasService {
         fechaTermino: new Date(),
         titulo: "Test",
         estado: Estado.Incompleta,
-      },
-      {
-        id: 5,
-        fechaInicio: new Date(),
-        fechaTermino: new Date(),
-        titulo: "Tarea Completa",
-        estado: Estado.Completada,
+        notifDay: false,
+        notifStart: false,
+        notifEnd: false
       }
     ];
 
     this.tareasSubject$ = new BehaviorSubject(this.tareas);
+
+    setInterval(() => this.checkTareasTerminadas(), 60_000);
+    this.checkTareasTerminadas();
   }
 
   addTarea(tarea: Tarea): void {
@@ -65,9 +74,14 @@ export class TareasService {
   }
 
   eliminarTarea(id: number): void {
-    this.tareas = this.tareas.filter(tarea => tarea.id !== id);
+    this.tareas = this.tareas.filter(tarea => tarea.id != id )
     this.tareasSubject$.next(this.tareas);
   }
+  
+  getTarea(id: number): Tarea | undefined {
+    return this.tareas.find(t => t.id === id);
+  }
+  
 
   getTareas(): Array<Tarea> {
     return this.tareas;
@@ -110,60 +124,23 @@ export class TareasService {
     // this.tareasSubject$.next(this.tareas);
   }
 
-  tareasDePrueba: Array<Tarea> = [
-    {
-      id: 0,
-      fechaTermino: new Date(2025, 6, 5, 10),
-      titulo: "Tarea 1",
-      descripcion: "Descripción de la tarea 1",
-      estado: Estado.Incompleta
-    },
-    {
-      id: 1,
-      fechaTermino: new Date(2025, 6, 5, 4),
-      titulo: "Tarea 2",
-      descripcion: "Descripción de la tarea 2",
-      estado: Estado.Incompleta
-    },
-    {
-      id: 2,
-      fechaTermino: new Date(2025, 6, 6),
-      titulo: "Tarea 3",
-      descripcion: "Descripción de la tarea 3",
-      estado: Estado.Incompleta
-    },
-    {
-      id: 3,
-      fechaTermino: new Date(2025, 6, 8),
-      titulo: "Tarea 4",
-      descripcion: "Descripción de la tarea 4",
-      estado: Estado.Incompleta
-    },
-    {
-      id: 4,
-      fechaTermino: new Date(2025, 6, 2),
-      titulo: "Tarea 5",
-      descripcion: "Esto es una tarea completa",
-      estado: Estado.Completada
-    },
-    {
-      id: 5,
-      fechaTermino: new Date(2025, 6, 3, 10),
-      titulo: "Tarea 6",
-      descripcion: "Esto es una tarea en progreso",
-      estado: Estado.EnProgreso,
-    },
-    {
-      id: 6,
-      fechaInicio: new Date(2025, 6, 3, 2),
-      fechaTermino: new Date(2025, 6, 3, 4),
-      titulo: "Tarea 7",
-      descripcion: "Esto es una tarea con un intervalo de tiempo",
-      estado: Estado.Incompleta,
-    }
-  ]
-
-  getTareasDePrueba(): Array<Tarea> {
-    return this.tareasDePrueba;
+  private checkTareasTerminadas() {
+    const now = new Date();
+    this.tareas.forEach(tarea => {
+      if (tarea.fechaTermino < new Date(now.getTime() + 24 * 60 * 60 * 1000) && tarea.estado != 0 && !tarea.notifEnd) {
+        this.notificationService.sendNotification(`La tarea "${tarea.titulo}" terminará en un dia`);
+        tarea.notifDay = true;
+      }
+      if (tarea.fechaInicio) {
+        if (tarea.fechaInicio < now && tarea.estado != 0 && !tarea.notifStart) {
+          this.notificationService.sendNotification(`La tarea "${tarea.titulo}" ha empezado`);
+          tarea.notifStart = true;
+        }
+      }
+      if (tarea.fechaTermino < now && tarea.estado != 0 && !tarea.notifEnd) {
+        this.notificationService.sendNotification(`La tarea "${tarea.titulo}" ha terminado`);
+        tarea.notifEnd = true;
+      }
+    });
   }
 }

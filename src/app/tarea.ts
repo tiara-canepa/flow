@@ -6,6 +6,9 @@ export interface Tarea {
   descripcion?: string,
   notas?: string,
   estado: Estado
+  notifDay: Boolean
+  notifStart: Boolean
+  notifEnd: Boolean
 }
 
 export enum Estado {

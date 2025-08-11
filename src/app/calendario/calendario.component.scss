@@ -1,0 +1,23 @@
+.fab-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #28a745; /* green */
+  color: white;
+  border: none;
+  font-size: 2rem; /* controls icon size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.fab-btn:hover {
+  background-color: #218838; /* darker green */
+}
+
+

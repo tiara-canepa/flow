@@ -4,11 +4,11 @@ import { Tarea } from '../../tarea';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-mes',
-  standalone: true,
-  imports: [],
-  templateUrl: './mes.component.html',
-  styleUrl: './mes.component.scss'
+    selector: 'app-mes',
+    imports: [],
+    standalone: true,
+    templateUrl: './mes.component.html',
+    styleUrl: './mes.component.scss'
 })
 export class MesComponent {
   servicioTareas: TareasService;
@@ -41,6 +41,7 @@ export class MesComponent {
           return tarea.fechaTermino.getMonth() === this.fechaVisual.getMonth();
         }
       });
+      this.tareasDelMes = this.tareasDelMes.filter(tarea => tarea.estado != 0)
     });
 
     this.semanas = this.getSemanas(this.fechaVisual);

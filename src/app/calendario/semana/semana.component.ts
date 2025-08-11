@@ -5,11 +5,11 @@ import { Tarea } from '../../tarea';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-semana',
-  standalone: true,
-  imports: [NgClass, RouterLink],
-  templateUrl: './semana.component.html',
-  styleUrl: './semana.component.scss'
+    selector: 'app-semana',
+    imports: [NgClass, RouterLink],
+    standalone: true,
+    templateUrl: './semana.component.html',
+    styleUrl: './semana.component.scss'
 })
 export class SemanaComponent {
 
@@ -33,10 +33,9 @@ export class SemanaComponent {
     servicioTareas.getTareasSubject().subscribe(tareas => {
       this.tareas = tareas;
       this.tareasDeLaSemana = this.getTareasDeLaSemana();
+      this.tareasDeLaSemana = this.tareasDeLaSemana.filter(t => t.estado != 0)
       this.celdasActivas = this.getCeldasActivas();
     })
-
-    console.log(this.celdasActivas);
   }
 
   // Entrega un arreglo de las tareas que corresponden a la semana que se está
@@ -99,7 +98,7 @@ export class SemanaComponent {
   // Filtra el arreglo de tareas y entrega otro con las que están dentro de un
   // rango de una hora en un día dado
   getTareasEntreHoras(hora: number, dia: number): Tarea[] {
-    let tareas = this.tareas.filter(tarea => {
+    let tareas = this.tareasDeLaSemana.filter(tarea => {
       let diaTermino = tarea.fechaTermino.getDate();
       let horaTermino = tarea.fechaTermino.getHours();
 

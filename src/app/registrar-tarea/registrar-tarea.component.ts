@@ -2,20 +2,20 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Estado } from '../tarea';
 import { TareasService } from '../tareas.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common'
 
 @Component({
-  selector: 'app-registrar-tarea',
-  standalone: true,
-  imports: [FormsModule, RouterLink],
-  templateUrl: './registrar-tarea.component.html',
-  styleUrl: './registrar-tarea.component.scss'
+    selector: 'app-registrar-tarea',
+    imports: [FormsModule],
+    templateUrl: './registrar-tarea.component.html',
+    styleUrl: './registrar-tarea.component.scss',
+    standalone: true
 })
 export class RegistrarTareaComponent {
   private router = inject(Router);
 
   esIntervalo = false;
-  servicioTareas: TareasService;
 
   formTitulo: string = '';
   formDescripcion: string = '';
@@ -27,10 +27,8 @@ export class RegistrarTareaComponent {
   fechaTermino: string = '';
   horaTermino: string = '';
 
-  disabled: boolean = true;
-
-  constructor(servicioTareas: TareasService) {
-    this.servicioTareas = servicioTareas;
+  constructor(private servicioTareas: TareasService, private location: Location) {
+    
   }
 
   registrarTarea() {
@@ -48,8 +46,11 @@ export class RegistrarTareaComponent {
       descripcion: this.formDescripcion,
       notas: this.formNotas,
       estado: Estado.Incompleta,
+      notifDay: false,
+      notifStart: false,
+      notifEnd: false
     })
 
-    this.router.navigate(['']);
+    this.location.back()
   }
 }

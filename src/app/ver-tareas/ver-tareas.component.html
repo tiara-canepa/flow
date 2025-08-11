@@ -1,8 +1,10 @@
-@if (tareasCompletadas.length === 0) {
-<p>No hay tareas completadas</p>
-}
+<div class="row text-center">
+  <div class="col h3">
+    {{tareasPendientes.length}} Tareas Pendientes
+  </div>
+</div>
 
-@for (tarea of tareasCompletadas; track tarea.id) {
+@for (tarea of tareasPendientes; track tarea.id) {
 <div class="row">
   <div class="card">
 
@@ -11,6 +13,22 @@
 
         <div class="col h5">
           {{ tarea.titulo }}
+        </div>
+
+        <div class="col-4 text-end">
+            <select (change)="cambiarEstado(tarea.id, $event.target)">
+              <option value="0" [selected]="tarea.estado === 0">Completada</option>
+              <option value="1" [selected]="tarea.estado === 1">En Progreso</option>
+              <option value="2" [selected]="tarea.estado === 2">Incompleta</option>
+            </select>
+        </div>
+
+        <div class="col-auto">
+         <button class="fab-btn-edit" [routerLink]="['/modificar', tarea.id]"><i class="bi bi-pencil-fill"></i></button>
+        </div>
+
+        <div class="col-auto">
+        <button class="fab-btn-delete" (click)="deleteTarea(tarea)"><i class="bi bi-trash-fill"></i></button>
         </div>
 
       </div>
@@ -22,7 +40,7 @@
         @if (tarea.fechaInicio) {
           <li class="list-group-item">
           Desde {{tarea.fechaInicio.getDate()}}/{{tarea.fechaInicio.getMonth()+1}}/{{tarea.fechaInicio.getFullYear()}}, {{days[tarea.fechaInicio.getDay()]}} a las {{ tarea.fechaInicio.getHours() }}:{{ tarea.fechaInicio.getMinutes() }} </li>
-        } 
+        }
         <li class="list-group-item">
             Hasta {{tarea.fechaTermino.getDate()}}/{{tarea.fechaTermino.getMonth()+1}}/{{tarea.fechaTermino.getFullYear()}}, {{days[tarea.fechaTermino.getDay()]}} a las {{ tarea.fechaTermino.getHours() }}:{{ tarea.fechaTermino.getMinutes() }} </li>
         @if (tarea.notas) {
@@ -33,3 +51,7 @@
   </div>
 </div>
 }
+
+<button class="fab-btn-add" [routerLink]="['/registrar']">
+  <i class="bi bi-plus"></i>
+</button>

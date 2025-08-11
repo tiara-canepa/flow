@@ -1,18 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { TareasService } from '../../tareas.service';
 import { Tarea, Estado } from '../../tarea';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-dia',
-  standalone: true,
-  imports: [],
-  templateUrl: './dia.component.html',
-  styleUrl: './dia.component.scss'
+    selector: 'app-dia',
+    imports: [RouterModule],
+    standalone: true,
+    templateUrl: './dia.component.html',
+    styleUrl: './dia.component.scss'
 })
 export class DiaComponent {
+
   private activatedRoute = inject(ActivatedRoute);
-  private servicioTareas;
 
   dia: Date = new Date();
   diasStrings: string[] = [
@@ -27,9 +27,7 @@ export class DiaComponent {
   tareas: Array<Tarea> = [];
   tareasDelDia: Array<Tarea> = [];
 
-  constructor(servicioTareas: TareasService) {
-    this.servicioTareas = servicioTareas;
-
+  constructor(private servicioTareas: TareasService) {
     this.activatedRoute.params.subscribe(params => {
       this.dia = new Date(params['anno'], params['mes'], params['dia']);
     })
@@ -37,6 +35,7 @@ export class DiaComponent {
     servicioTareas.getTareasSubject().subscribe(tareas => {
       this.tareas = tareas;
       this.tareasDelDia = this.getTareasDelDia();
+      this.tareasDelDia = this.tareasDelDia.filter(t => t.estado != 0)
     });
   }
 
@@ -58,11 +57,8 @@ export class DiaComponent {
     });
   }
 
-  eliminarTarea(id: number) {
-    this.servicioTareas.eliminarTarea(id);
-  }
-
   cambiarEstado(id: number, event: any) {
+    this.servicioTareas.modificarEstado(id, event.value);
     let estado: Estado;
     switch (event.value) {
       case "0": estado = Estado.Completada; break;
@@ -72,5 +68,9 @@ export class DiaComponent {
     }
 
     this.servicioTareas.modificarEstado(id, estado);
+  }
+
+  deleteTarea(tarea: Tarea) {
+    this.servicioTareas.eliminarTarea(tarea.id)
   }
 }

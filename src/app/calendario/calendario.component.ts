@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-calendario',
-  standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './calendario.component.html',
-  styleUrl: './calendario.component.scss'
+    selector: 'app-calendario',
+    imports: [RouterOutlet, RouterModule],
+    standalone: true,
+    templateUrl: './calendario.component.html',
+    styleUrl: './calendario.component.scss'
 })
 export class CalendarioComponent {
   private router = inject(Router);

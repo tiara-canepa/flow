@@ -12,6 +12,7 @@ import { TareasService } from '../tareas.service';
 export class HistorialComponent {
   servicioTareas = inject(TareasService);
   tareasCompletadas: Tarea[] = [];
+  days = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"]
 
   constructor() {
     this.servicioTareas.getTareasSubject().subscribe((tareas) => {

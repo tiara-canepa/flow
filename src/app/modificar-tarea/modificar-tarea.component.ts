@@ -1,23 +1,29 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { TareasService } from '../tarea/tareas.service';
-import { Estado, Tarea } from '../tarea/tarea';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TareasService } from '../tareas.service'
+import { Tarea } from '../tarea'
 import { FormsModule } from '@angular/forms';
+import { throwError } from 'rxjs';
+import { Location } from '@angular/common';
+
 
 @Component({
-  selector: 'app-modificar-tarea',
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './modificar-tarea.component.html',
-  styleUrl: './modificar-tarea.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-modificar-tarea',
+    imports: [FormsModule],
+    standalone: true,
+    templateUrl: './modificar-tarea.component.html',
+    styleUrl: './modificar-tarea.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModificarTareaComponent {
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
+
+  tareaId = Number(this.route.snapshot.paramMap.get('id'));
 
   esIntervalo = false;
   servicioTareas: TareasService;
-  tarea: Tarea 
+  tarea: Tarea | undefined
 
   formTitulo: string = '';
   formDescripcion: string = '';
@@ -29,27 +35,34 @@ export class ModificarTareaComponent {
   fechaTermino: string = '';
   horaTermino: string = '';
 
-  constructor(servicioTareas: TareasService) {
+  constructor(servicioTareas: TareasService, private location: Location) {
+
     this.servicioTareas = servicioTareas
-    this.tarea = servicioTareas.getTareas()[0]   //CHANGE THIS
+    this.tarea = servicioTareas.getTarea(this.tareaId)
+    if (this.tarea) {
+      this.formTitulo = this.tarea.titulo
 
-    this.formTitulo = this.tarea.titulo
+      if (this.tarea.descripcion) {
+        this.formDescripcion = this.tarea.descripcion
+      }
+      if (this.tarea.notas) {
+        this.formNotas = this.tarea.notas
+      }
+      
+      if (this.tarea.fechaInicio) {
+        this.esIntervalo = true
+        this.fechaInicio = this.IsoToString(this.tarea.fechaInicio.toISOString())[0]
+        this.horaInicio = this.IsoToString(this.tarea.fechaInicio.toISOString())[1]
+      }
 
-    if (this.tarea.descripcion) {
-      this.formDescripcion = this.tarea.descripcion
+      this.fechaTermino = this.IsoToString(this.tarea.fechaTermino.toISOString())[0]
+      this.horaTermino = this.IsoToString(this.tarea.fechaTermino.toISOString())[1]
+    } else {
+      throwError('Task not found')
+      this.tarea = undefined
     }
-    if (this.tarea.notas) {
-      this.formNotas = this.tarea.notas
-    }
+
     
-    if (this.tarea.fechaInicio) {
-      this.esIntervalo = true
-      this.fechaInicio = this.IsoToString(this.tarea.fechaInicio.toISOString())[0]
-      this.horaInicio = this.IsoToString(this.tarea.fechaInicio.toISOString())[1]
-    }
-
-    this.fechaTermino = this.IsoToString(this.tarea.fechaTermino.toISOString())[0]
-    this.horaTermino = this.IsoToString(this.tarea.fechaTermino.toISOString())[1]
 
   }
 
@@ -63,17 +76,18 @@ export class ModificarTareaComponent {
   }
 
   modificarTarea() {
-    
-    if (this.esIntervalo) {
-      this.tarea.fechaInicio = new Date(`${this.fechaInicio}T${this.horaInicio}`);
+    if (this.tarea) {
+      if (this.esIntervalo) {
+        this.tarea.fechaInicio = new Date(`${this.fechaInicio}T${this.horaInicio}`);
+      }
+
+      this.tarea.titulo = this.formTitulo
+      this.tarea.descripcion = this.formDescripcion
+      this.tarea.notas = this.formNotas
+      this.tarea.fechaTermino = new Date(`${this.fechaTermino}T${this.horaTermino}`)
     }
 
-    this.tarea.titulo = this.formTitulo
-    this.tarea.descripcion = this.formDescripcion
-    this.tarea.notas = this.formNotas
-    this.tarea.fechaTermino = new Date(`${this.fechaTermino}T${this.horaTermino}`)
-
-    this.router.navigate(['']);
+    this.location.back();
   }
 }
 
