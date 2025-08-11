@@ -15,23 +15,11 @@
           {{ tarea.titulo }}
         </div>
 
-        <!-- <div class="dropdown col-2 text-end"> -->
-        <!--   <button class="btn btn-success dropdown-toggle" type="button" -->
-        <!--       data-bs-toggle="dropdown" aria-expanded="false" -->
-        <!--       (change)="cambiar(tarea.id, $event.target)"> -->
-        <!--     {{ tarea.estado }} -->
-        <!--   </button> -->
-        <!--   <ul class="dropdown-menu"> -->
-        <!--     <li>Completada</li> -->
-        <!--     <li>En Progreso</li> -->
-        <!--     <li>Incompleta</li> -->
-        <!--   </ul> -->
-        <!-- </div> -->
           <div class="col-4 text-end">
             <select (change)="cambiarEstado(tarea.id, $event.target)">
-              <option value="1" [selected]="tarea.estado === 0">Completada</option>
-              <option value="2" [selected]="tarea.estado === 1">En Progreso</option>
-              <option value="3" [selected]="tarea.estado === 2">Incompleta</option>
+              <option value="0" [selected]="tarea.estado === 0">Completada</option>
+              <option value="1" [selected]="tarea.estado === 1">En Progreso</option>
+              <option value="2" [selected]="tarea.estado === 2">Incompleta</option>
             </select>
           </div>
 
@@ -48,7 +36,7 @@
         <li class="list-group-item"> {{ tarea.descripcion }} </li>
         <li class="list-group-item">
           @if (tarea.fechaInicio) {
-              Inicio {{ tarea.fechaInicio.getHours() }}:{{ tarea.fechaInicio.getMinutes() }}
+            Inicio {{ tarea.fechaInicio.getHours() }}:{{ tarea.fechaInicio.getMinutes() }}
           }
             Término {{ tarea.fechaTermino.getHours() }}:{{ tarea.fechaTermino.getMinutes() }}
         </li>

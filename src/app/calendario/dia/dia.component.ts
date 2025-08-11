@@ -63,6 +63,14 @@ export class DiaComponent {
   }
 
   cambiarEstado(id: number, event: any) {
-    this.servicioTareas.modificarEstado(id, event.value);
+    let estado: Estado;
+    switch (event.value) {
+      case "0": estado = Estado.Completada; break;
+      case "1": estado = Estado.EnProgreso; break;
+      case "2": estado = Estado.Incompleta; break;
+      default: estado = Estado.Incompleta; break;
+    }
+
+    this.servicioTareas.modificarEstado(id, estado);
   }
 }

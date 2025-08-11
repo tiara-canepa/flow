@@ -4,6 +4,8 @@ import { MesComponent } from './calendario/mes/mes.component';
 import { SemanaComponent } from './calendario/semana/semana.component';
 import { DiaComponent } from './calendario/dia/dia.component';
 import { RegistrarTareaComponent } from './registrar-tarea/registrar-tarea.component';
+import { ModificarTareaComponent } from './modificar-tarea/modificar-tarea.component';
+import { HistorialComponent } from './historial/historial.component';
 
 export const routes: Routes = [
   {
@@ -38,5 +40,13 @@ export const routes: Routes = [
   {
     path: 'registrar',
     component: RegistrarTareaComponent,
+  },
+  {
+    path: 'modificar/:id',
+    component: ModificarTareaComponent,
+  },
+  {
+    path: 'historial',
+    component: HistorialComponent,
   }
 ];

@@ -14,9 +14,13 @@
         (change)="cambiarRango($event)">
       <label class="btn btn-outline-primary" for="dia">Día</label>
 
-      <input value="registrar" type="radio" class="btn-check" name="registrar"
-        id="registrar" autocomplete="off" (change)="cambiarRango($event)">
+      <input value="registrar" type="radio" class="btn-check" name="registrar" id="registrar" autocomplete="off"
+        (change)="cambiarRango($event)">
       <label class="btn btn-outline-primary" for="registrar">Nueva Tarea</label>
+
+      <input value="historial" type="radio" class="btn-check" name="historial" id="historial" autocomplete="off"
+        (change)="cambiarRango($event)">
+      <label class="btn btn-outline-primary" for="historial">Historial</label>
 
     </div>
   </div>

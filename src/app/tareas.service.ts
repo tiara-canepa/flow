@@ -37,6 +37,13 @@ export class TareasService {
         fechaTermino: new Date(),
         titulo: "Test",
         estado: Estado.Incompleta,
+      },
+      {
+        id: 5,
+        fechaInicio: new Date(),
+        fechaTermino: new Date(),
+        titulo: "Tarea Completa",
+        estado: Estado.Completada,
       }
     ];
 
