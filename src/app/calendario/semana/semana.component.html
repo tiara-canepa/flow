@@ -43,7 +43,7 @@
             @for (cols of filas; track $index) {
               <div class="col p-0">
                 @if (cols.activo) {
-                  <a routerLink="/mes" class="active"></a>
+                  <a [routerLink]="['/modificar', cols.id]" class="active"></a>
                 }
               </div>
             }
